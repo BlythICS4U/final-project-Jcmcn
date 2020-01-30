@@ -21,11 +21,10 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
- * The Panels class gets the images and paints it on the JFrame and creates all the buttons
- * It interacts with the Main and Game methods
- * It creates all the buttons
- * Stores all the images in the folders in arrays
- * Updates the JPanel
+ * The Panels class gets the images and paints it on the JFrame and creates all
+ * the buttons It interacts with the Main and Game methods It creates all the
+ * buttons Stores all the images in the folders in arrays Updates the JPanel
+ *
  * @author Joca
  */
 public class Panels extends JPanel {
@@ -63,16 +62,16 @@ public class Panels extends JPanel {
         OPTION4,
         OPTION4,
         NUMBER_BUTTON,
-        OPTION1
+        OPTION3
     };
 
     /*
     * Gets all the images from the files and stores them in the array
-    */
+     */
     public Panels(Game game) {
 
         this.game = game;
-        
+
         this.setPreferredSize(new Dimension(600, 500));
 
         try {
@@ -82,7 +81,8 @@ public class Panels extends JPanel {
                 if (i <= 9) {
                     questionImages[i] = ImageIO.read(new File("Questions/" + fileName));
                 }
-            }System.out.println(new File("MainScreen").getAbsolutePath());
+            }
+            System.out.println(new File("MainScreen").getAbsolutePath());
             extraImages[0] = ImageIO.read(new File("ExtraPanels/MainScreen.png"));
             extraImages[1] = ImageIO.read(new File("ExtraPanels/Help.png"));
             extraImages[2] = ImageIO.read(new File("ExtraPanels/Scores.png"));
@@ -97,7 +97,7 @@ public class Panels extends JPanel {
         /*
         * When the mouse is clicked gets it's location and acts according to where
         * it was clicked and in which panel it is currently
-        */
+         */
         this.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 int x = e.getX();
@@ -115,7 +115,7 @@ public class Panels extends JPanel {
                 * extraPanelsSelector 0 = Main Menu
                 * extraPanelsSelector 1 = Help
                 * extraPanelsSelector 2 = Score
-                */
+                 */
                 if (playButton.contains(x, y) && extraPanelsSelector == 0 && selector == 0) {
                     selector = 1;
                     game.startGame();
@@ -141,11 +141,13 @@ public class Panels extends JPanel {
                     reset();
                     selector = 1;
                     repaint();
-                }
-                else if (questionNumber == 10 && questionsButton.contains(x, y) && selector == 1){
+                } 
+                // After the 10th question is answered this statement ends the game and resets the question number to 1
+                else if (questionNumber == 10 && questionsButton.contains(x, y) && selector == 1) {
                     selector = 0;
                     game.endGame();
                     repaint();
+                    reset();
                 }
 
             }
@@ -157,11 +159,11 @@ public class Panels extends JPanel {
         return questionNumber;
 
     }
-    
+
     /*
     * When an incorrect answer is given or the game is reset sets question number
     * to the first question
-    */
+     */
     public void reset() {
 
         questionNumber = 1;
@@ -181,12 +183,11 @@ public class Panels extends JPanel {
         // Used only for printing the score on the screen
         if (extraPanelsSelector == 2 && selector == 0) {
             String[] scoreLines = game.getScore().scoreReader();
-            
+
             g.setFont(new Font("Comic Sans MS", Font.BOLD, 28));
-            
-            for (int y = 0; y < scoreLines.length; y++){
-                System.out.println(scoreLines[y]);
-                g.drawString(scoreLines[y], 250, y*28+200);
+
+            for (int y = 0; y < scoreLines.length; y++) {
+                g.drawString(scoreLines[y], 275, y * 28 + 200);
             }
         }
     }

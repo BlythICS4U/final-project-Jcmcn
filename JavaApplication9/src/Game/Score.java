@@ -5,7 +5,6 @@
  */
 package Game;
 
-import Game.GUI.Panels;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -14,11 +13,11 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * The Score class is where all the operations that involve the score happen
- * It only interacts with the Game class
- * It calculates number of incorrect answers and the amount of time needed to finish the game
- * Calculates the final score
+ * The Score class is where all the operations that involve the score happen It
+ * only interacts with the Game class It calculates number of incorrect answers
+ * and the amount of time needed to finish the game Calculates the final score
  * Prints and read it from a file
+ *
  * @author Joca
  */
 public class Score {
@@ -26,14 +25,14 @@ public class Score {
     int incorrect = 0; //Number of incorrect answer during the gameplay time
     public long startingTime = 0; //Used to calculate the total time passed during gameplay time
     public long endingTime; //Used to calculate the total time passed during gameplay time
-    
+
     /*
     * Writes the new Score to the file while at the same time putting the score 
     * in increasing order.
     * If there isn't a score file it will create the score file and set the scores 
     * in the file to 0
-    */
-    public void scoreWriter(long high) {
+     */
+    public static void scoreWriter(long high) {
 
         BufferedWriter bw = null;
 
@@ -60,7 +59,7 @@ public class Score {
             }
 
             br = new BufferedReader(new FileReader("Score.txt"));
-            
+
             // Adds the existing scores to an array
             long[] scores = new long[3];
             String line = br.readLine();
@@ -128,7 +127,7 @@ public class Score {
 
     /*
     * Reads the scores from the file
-    */
+     */
     public static String[] scoreReader() {
 
         BufferedReader br = null;
@@ -137,6 +136,14 @@ public class Score {
 
         try {
 
+            File file = new File("Score.txt");
+            
+            if (!file.exists()){
+                
+                scoreWriter(0);
+                
+            }
+            
             br = new BufferedReader(new FileReader("Score.txt"));
 
             String contentLine = br.readLine();
@@ -145,9 +152,9 @@ public class Score {
 
             while (contentLine != null) {
 
-                
-
-                if (counter < 3) scores[counter] = contentLine;
+                if (counter < 3) {
+                    scores[counter] = contentLine;
+                }
 
                 counter++;
                 contentLine = br.readLine();
@@ -192,7 +199,7 @@ public class Score {
     /*
     * Calculates the amount of passed during gameplay time by subtracting the
     * this method's second call by the first call.
-    */
+     */
     public void timer() {
 
         if (startingTime == 0) {

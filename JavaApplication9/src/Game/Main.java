@@ -22,13 +22,15 @@ public class Main {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                // Initializes the JFrame
                 JFrame frame = new JFrame("Outside The Box");
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 Game game = new Game();
                 Panels panel = new Panels(game);
+                // Adds the JPanel to the JFrame
                 game.setQuestionPanel(panel);
                 frame.add(new Panels(game));
-                // 
+
                 frame.setResizable(false);
                 frame.pack();
                 frame.setVisible(true);
